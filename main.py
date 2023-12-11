@@ -6,6 +6,7 @@ screen = t.Screen()
 # W = 600, H = 500, open in top left corner
 screen.setup(600, 500, 0, 0)
 screen.bgcolor("black")
+screen.title(":3")
 
 # Available shapes:
 # ['arrow', 'blank', 'circle', 'classic', 'square', 'triangle', 'turtle']
@@ -16,7 +17,7 @@ screen.addshape("./res/colon-three-kitty.gif")
 cat = t.Turtle()
 cat.shape("./res/colon-three-kitty.gif")
 
-# move turtle
+# move turtle for start
 start = t.Turtle()
 start.hideturtle() # arrow isn't visible
 start.up() # don't draw while moving
@@ -30,8 +31,18 @@ start.color("pink")
 f = ('comic sans', 25)
 start.write("Start", font=f, align="Center")
 
+# move turtle for quit
+quit = t.Turtle()
+quit.hideturtle()
+quit.up()
+quit.right(90)
+quit.forward(screen.window_height() / 2 - 100)
+quit.right(90)
+quit.forward(screen.window_width() / 4)
 
-
+# write quit
+quit.color("red")
+quit.write("Quit", font=f, align="Center")
 
 # Close screen
 screen.exitonclick()
