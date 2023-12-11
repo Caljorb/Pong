@@ -26,6 +26,7 @@ start.right(90)
 start.forward(screen.window_width() / 4)
 
 # write start
+start.color("pink")
 f = ('comic sans', 25)
 start.write("Start", font=f, align="Center")
 
