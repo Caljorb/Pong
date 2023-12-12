@@ -12,6 +12,13 @@ def swap():
     INDEX = INDEX % 2
     arrow.setposition(POS[INDEX])
 
+def use():
+    global INDEX
+    if INDEX == 0:
+        print(":3")
+    else:
+        screen.bye()
+
 # Create screen
 screen = t.Screen()
 
@@ -65,7 +72,7 @@ arrow.setposition(SPOS)
 screen.listen()
 screen.onkeypress(swap, "Up")
 screen.onkeypress(swap, "Down")
-#screen.onkeypress(use(),"Return")
+screen.onkeypress(use,"Return")
 
 t.mainloop()
 
