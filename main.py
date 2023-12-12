@@ -1,5 +1,8 @@
 import turtle as t
 
+SPOS = (105, 170)
+QPOS = (-150, -150)
+
 # Create screen
 screen = t.Screen()
 
@@ -25,6 +28,8 @@ start.left(90)
 start.forward(screen.window_height() / 2 - 100)
 start.right(90)
 start.forward(screen.window_width() / 4)
+#sPos = start.pos()
+#print(sPos)
 
 # write start
 start.color("pink")
@@ -39,10 +44,17 @@ quit.right(90)
 quit.forward(screen.window_height() / 2 - 100)
 quit.right(90)
 quit.forward(screen.window_width() / 4)
+#qPos = quit.pos()
+#print(qPos)
 
 # write quit
 quit.color("red")
 quit.write("Quit", font=f, align="Center")
+
+# make arrow indicator for selection
+arrow = t.Turtle()
+arrow.up()
+arrow.setposition(SPOS)
 
 # Close screen
 screen.exitonclick()
