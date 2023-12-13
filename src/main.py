@@ -16,7 +16,8 @@ def swap():
 def use():
     global INDEX
     if INDEX == 0:
-        game.Game(screen)
+        pong = game.Game(screen)
+        pong.play()
     else:
         screen.bye()
 
@@ -31,11 +32,11 @@ screen.title(":3")
 # Available shapes:
 # ['arrow', 'blank', 'circle', 'classic', 'square', 'triangle', 'turtle']
 # adds gif to list of shapes
-screen.addshape("../res/colon-three-kitty.gif")
+screen.addshape("./res/colon-three-kitty.gif")
 
 # display on screen
 cat = t.Turtle()
-cat.shape("../res/colon-three-kitty.gif")
+cat.shape("./res/colon-three-kitty.gif")
 
 # move turtle for start
 start = t.Turtle()
