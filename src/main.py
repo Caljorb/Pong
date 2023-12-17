@@ -18,6 +18,7 @@ def use():
     if INDEX == 0:
         pong = game.Game(screen)
         pong.play()
+        t.mainloop() # play is not looping
     else:
         screen.bye()
 

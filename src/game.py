@@ -93,18 +93,50 @@ class Game:
             self.ball.sety(-490)
             self.ball.dy *= -1
 
+    # move p1 up
+    def p1_up(self):
+        self.p1.dy = 10
+        #print("Up 1", self.p1.dy)
+
+    # move p1 down
+    def p1_down(self):
+        self.p1.dy = -10
+        #print("Down 1", self.p1.dy)
+
+    # move p2 up
+    def p2_up(self):
+        self.p2.dy = 10
+        #print("Up 2", self.p2.dy)
+
+    # move p2 down
+    def p2_down(self):
+        self.p2.dy = -10
+        #print("Down 2", self.p2.dy)
+
+    # sets up game screen to play
     def play(self):
-        self.p1.sety(self.p1.ycor() + self.p1.dy)
-        self.p2.sety(self.p2.ycor() + self.p2.dy)
-        self.ball.setx(self.ball.xcor() + self.ball.dx)
-        self.ball.sety(self.ball.ycor() + self.ball.dy)
+        while(True):
+            self.p1.sety(self.p1.ycor() + self.p1.dy)
+            self.p2.sety(self.p2.ycor() + self.p2.dy)
+            self.ball.setx(self.ball.xcor() + self.ball.dx)
+            self.ball.sety(self.ball.ycor() + self.ball.dy)
 
-        # end if game over
-        if self.gameover():
-            print(self.winner, " :3")
+            # end if game over
+            if self.gameover():
+                print(self.winner, " :3")
+                break
 
-        self.check_collision()
-        self.off_screen()
-        self.top_collision()
-        self.score.clear()
-        self.score.write("P1: {}      P2: {}".format(self.points[0], self.points[1]), align="center", font=("comic sans", 24))
+            # draw stuff, check not out of bounds
+            self.check_collision()
+            self.off_screen()
+            self.top_collision()
+            self.score.clear()
+            self.score.write("P1: {}      P2: {}".format(self.points[0], self.points[1]), align="center", font=("comic sans", 24))
+
+            # Move paddles
+            t.listen()
+            t.onkeypress(self.p1_up, "w")
+            t.onkeypress(self.p1_down, "s")
+            t.onkeypress(self.p2_up, "Up")
+            t.onkeypress(self.p2_down, "Down")
+
