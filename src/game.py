@@ -79,7 +79,7 @@ class Game:
             self.ball.setposition(0, 0)
             self.ball.dx *= -1
             self.points[0] += 1
-        elif self.ball.xcor() > -290:
+        elif self.ball.xcor() < -290:
             self.ball.setposition(0, 0)
             self.ball.dx *= -1
             self.points[1] += 1
