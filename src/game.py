@@ -1,4 +1,5 @@
 import turtle as t
+import random
 
 class Game:
 
@@ -21,13 +22,22 @@ class Game:
         p.dy = 0 # change in y
         return p
 
+    # sets ball movement randomly
+    def ball_rand_dir(self, ball):
+        neg1 = random.random() > .5
+        neg2 = random.random() > .5
+        ball.dx = -8 if neg1 else 8
+        ball.dy = -(random.random()) * 10 if neg2 else random.random() * 10
+
     # creates a ball at center of screen
     def create_ball(self):
         ball = t.Turtle()
         ball.shape("circle")
         ball.color("white")
+        ball.up()
         ball.dx = 0
         ball.dy = 0
+        self.ball_rand_dir(ball)
         return ball
 
     # writes scoreboard to screen
@@ -69,7 +79,7 @@ class Game:
         if (self.ball.xcor() > 240 and self.ball.xcor() < 250) and (self.ball.ycor() < self.p2.ycor() + 50 and self.ball.ycor() > self.p2.ycor() - 50):
             self.ball.setx(240)
             self.ball.dx *= -1
-        elif (self.ball.xcor() > -240 and self.ball.xcor() < -250) and (self.ball.ycor() < self.p2.ycor() + 50 and self.ball.ycor() > self.p2.ycor() - 50):
+        elif (self.ball.xcor() < -240 and self.ball.xcor() > -250) and (self.ball.ycor() < self.p1.ycor() + 50 and self.ball.ycor() > self.p1.ycor() - 50):
             self.ball.setx(-240)
             self.ball.dx *= -1
 
@@ -86,11 +96,11 @@ class Game:
 
     # check if ball hits top or bottom
     def top_collision(self):
-        if self.ball.ycor() > 490:
-            self.ball.sety(490)
+        if self.ball.ycor() > 250:
+            self.ball.sety(250)
             self.ball.dy *= -1
-        elif self.ball.ycor() < -490:
-            self.ball.sety(-490)
+        elif self.ball.ycor() < -250:
+            self.ball.sety(-250)
             self.ball.dy *= -1
 
     # move p1 up
@@ -114,24 +124,54 @@ class Game:
         #print("Down 2", self.p2.dy)
 
     # sets up game screen to play
-    def play(self):
+    def play(self, screen):
         while(True):
-            self.p1.sety(self.p1.ycor() + self.p1.dy)
-            self.p2.sety(self.p2.ycor() + self.p2.dy)
+            if self.p1.ycor() > 200:
+                self.p1.sety(200)
+                self.p1.dy = 0
+            elif self.p1.ycor() < -200:
+                self.p1.sety(-200)
+                self.p1.dy = 0
+            else:
+                self.p1.sety(self.p1.ycor() + self.p1.dy)
+
+            if self.p2.ycor() > 200:
+                self.p2.sety(200)
+                self.p2.dy = 0
+            elif self.p2.ycor() < -200:
+                self.p2.sety(-200)
+                self.p2.dy = 0
+            else:
+                self.p2.sety(self.p2.ycor() + self.p2.dy)
+
             self.ball.setx(self.ball.xcor() + self.ball.dx)
             self.ball.sety(self.ball.ycor() + self.ball.dy)
 
             # end if game over
             if self.gameover():
-                print(self.winner, " :3")
-                break
+                #print(self.winner, " :3")
+                screen.clearscreen()
+                screen.bgcolor("black")
+                str = self.winner + " wins!"
+                self.score.setpos(0, 0)
+                self.score.write(str, align="center", font=("comic sans", 48))
+                self.score.setpos(0, -75)
+                self.score.write("Click to exit", align="center", font=("comic sans", 24))
+
+                screen.exitonclick()
+                return True
 
             # draw stuff, check not out of bounds
             self.check_collision()
+
+            temp = [self.points[0], self.points[1]]
+
             self.off_screen()
             self.top_collision()
-            self.score.clear()
-            self.score.write("P1: {}      P2: {}".format(self.points[0], self.points[1]), align="center", font=("comic sans", 24))
+
+            if (temp[0] != self.points[0] or temp[1] != self.points[1]):
+                self.score.clear()
+                self.score.write("P1: {}      P2: {}".format(self.points[0], self.points[1]), align="center", font=("comic sans", 24))
 
             # Move paddles
             t.listen()
@@ -139,4 +179,3 @@ class Game:
             t.onkeypress(self.p1_down, "s")
             t.onkeypress(self.p2_up, "Up")
             t.onkeypress(self.p2_down, "Down")
-
