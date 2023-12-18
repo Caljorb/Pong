@@ -106,22 +106,18 @@ class Game:
     # move p1 up
     def p1_up(self):
         self.p1.dy = 10
-        #print("Up 1", self.p1.dy)
 
     # move p1 down
     def p1_down(self):
         self.p1.dy = -10
-        #print("Down 1", self.p1.dy)
 
     # move p2 up
     def p2_up(self):
         self.p2.dy = 10
-        #print("Up 2", self.p2.dy)
 
     # move p2 down
     def p2_down(self):
         self.p2.dy = -10
-        #print("Down 2", self.p2.dy)
 
     # sets up game screen to play
     def play(self, screen):
@@ -149,7 +145,6 @@ class Game:
 
             # end if game over
             if self.gameover():
-                #print(self.winner, " :3")
                 screen.clearscreen()
                 screen.bgcolor("black")
                 str = self.winner + " wins!"

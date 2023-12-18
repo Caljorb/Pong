@@ -18,7 +18,6 @@ def use():
     if INDEX == 0:
         pong = game.Game(screen)
         pong.play(screen)
-        t.mainloop() # play is not looping
     else:
         screen.bye()
 
@@ -78,7 +77,4 @@ screen.onkeypress(swap, "Down")
 screen.onkeypress(use,"Return")
 
 t.mainloop()
-
-# Close screen
-#screen.exitonclick()
 
