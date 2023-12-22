@@ -119,19 +119,27 @@ class Game:
     def p2_down(self):
         self.p2.dy = -10
 
+    # stop p1 movement
+    def p1_stop(self):
+        self.p1.dy = 0
+
+    # stop p2 movement
+    def p2_stop(self):
+        self.p2.dy = 0
+
     # sets up game screen to play
     def play(self, screen):
         while(True):
-            if self.p1.ycor() > 200:
+            if self.p1.ycor() > 200: # dont let paddle go off screen
                 self.p1.sety(200)
                 self.p1.dy = 0
             elif self.p1.ycor() < -200:
                 self.p1.sety(-200)
                 self.p1.dy = 0
             else:
-                self.p1.sety(self.p1.ycor() + self.p1.dy)
+                self.p1.sety(self.p1.ycor() + self.p1.dy) # paddle movement
 
-            if self.p2.ycor() > 200:
+            if self.p2.ycor() > 200: # dont let paddle go off screen
                 self.p2.sety(200)
                 self.p2.dy = 0
             elif self.p2.ycor() < -200:
@@ -174,3 +182,8 @@ class Game:
             t.onkeypress(self.p1_down, "s")
             t.onkeypress(self.p2_up, "Up")
             t.onkeypress(self.p2_down, "Down")
+            # Stop paddles
+            t.onkeyrelease(self.p1_stop, "w")
+            t.onkeyrelease(self.p1_stop, "s")
+            t.onkeyrelease(self.p2_stop, "Up")
+            t.onkeyrelease(self.p2_stop, "Down")
